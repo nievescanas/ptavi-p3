@@ -9,41 +9,21 @@ class SmallSMILHandler(ContentHandler):
     def __init__ (self):
 
         self.etiquetas = []    
+        self.dicc={
+            'root-layout': ['width', 'height', 'background-color'],
+            'region': ['id', 'top', 'bottom', 'left', 'right'],
+            'img': ['src', 'region', 'begin', 'dur'],
+            'audio' : ['src', 'begin', 'dur'],
+            'textstream' : ['src', 'begin', 'dur']          
+    }
 
     def startElement(self, name, attrs):
         dicc = {}
-        if name == 'root-layout':
-            dicc['Nombre'] = ('root-layout')
-            dicc['width'] = attrs.get('width', "")
-            dicc['height'] = attrs.get('height', "")
-            dicc['background-color'] = attrs.get('background-color', "")
+        if name in self.dicc:
+            dicc['name'] = name
+            for atributo in self.dicc[name]:
+                    dicc[atributo] = attrs.get(atributo, "")
             self.etiquetas.append(dicc)
-        elif name == 'region':
-            dicc['Nombre'] = ('region')
-            dicc['id'] = attrs.get('id', "")
-            dicc['top'] = attrs.get('top', "")
-            dicc['bottom'] = attrs.get('bottom', "")
-            dicc['left'] = attrs.get('left', "")
-            dicc['right'] = attrs.get('right', "")
-            self.etiquetas.append(dicc)
-        elif name == 'img':
-            dicc['Nombre'] = ('img')
-            dicc['src'] = attrs.get('src', "")
-            dicc['region'] = attrs.get('region', "")
-            dicc['begin'] = attrs.get('begin', "")
-            dicc['dur'] = attrs.get('dur', "")
-            self.etiquetas.append(dicc)
-        elif name == 'audio':
-            dicc['Nombre'] = ('audio')
-            dicc['src'] = attrs.get('src', "")
-            dicc['begin'] = attrs.get('begin', "")
-            dicc['dur'] = attrs.get('dur', "")
-            self.etiquetas.append(dicc)
-        elif name == 'textstream':
-            dicc['Nombre'] = ('textstream')
-            dicc['src'] = attrs.get('src', "")
-            dicc['region'] = attrs.get('region', "")
-            self.etiquetas.append(dicc) 
 
     def get_tags(self):
         return self.etiquetas         
