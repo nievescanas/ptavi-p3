@@ -41,7 +41,7 @@ if __name__ == "__main__":
     parser.setContentHandler(cHandler)
     parser.parse(open(sys.argv[1]))
     cHandler.Url()
-    #cHandler.WriteLine()
-    #cHandler.WritelineJson()
+    cHandler.WriteLine()
+    cHandler.WritelineJson()
 
 
